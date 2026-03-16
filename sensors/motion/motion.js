@@ -1,7 +1,7 @@
 // --- Config ---
-const MAX_POINTS    = 100;   // data points shown on chart
-const ALPHA     = 0.05;  // low-pass smoothing factor
-const INTERVAL  = 1000 / 30; // ~30 Hz target
+const MAX_POINTS = 100;  // data points shown on chart
+const ALPHA      = 0.05; // low-pass smoothing factor
+const INTERVAL   = 1000 / 30; // ~30 Hz target
 
 // --- State ---
 const accel = { x: 0, y: 0, z: 0 };
@@ -10,10 +10,10 @@ let lastTime = null;
 let dirty = false;
 
 // --- DOM ---
-const valX   = document.getElementById('val-x');
-const valY   = document.getElementById('val-y');
-const valZ   = document.getElementById('val-z');
-const valMag = document.getElementById('val-mag');
+const valX       = document.getElementById('val-x');
+const valY       = document.getElementById('val-y');
+const valZ       = document.getElementById('val-z');
+const valMag     = document.getElementById('val-mag');
 const statusPill = document.getElementById('status-pill');
 const statusText = document.getElementById('status-text');
 const banner     = document.getElementById('permission-banner');
@@ -83,7 +83,7 @@ function renderLoop() {
     accelChart.update('none');
     velChart.update('none');
 
-    const mag = Math.sqrt(accel.x**2 + accel.y**2 + accel.z**2);
+    const mag  = Math.sqrt(accel.x**2 + accel.y**2 + accel.z**2);
     const vMag = Math.sqrt(vel.x**2 + vel.y**2 + vel.z**2);
 
     valX.textContent   = accel.x.toFixed(2);
@@ -128,13 +128,13 @@ function onMotion(e) {
 
 // --- Start listening ---
 function startListening() {
-  if (!MAX_POINTS.DeviceMotionEvent) {
+  if (!window.DeviceMotionEvent) {
     statusText.textContent = 'Not supported';
     banner.classList.add('hidden');
     return;
   }
 
-  MAX_POINTS.addEventListener('devicemotion', onMotion);
+  window.addEventListener('devicemotion', onMotion);
   statusPill.classList.add('live');
   statusText.textContent = 'Live';
   banner.classList.add('hidden');
@@ -143,7 +143,6 @@ function startListening() {
 // --- iOS permission ---
 function init() {
   if (typeof DeviceMotionEvent.requestPermission === 'function') {
-    // iOS 13+ — show banner, wait for tap
     banner.classList.remove('hidden');
     requestBtn.addEventListener('click', () => {
       DeviceMotionEvent.requestPermission()
@@ -160,7 +159,6 @@ function init() {
         });
     });
   } else {
-    // Android / desktop — start immediately, hide banner
     banner.classList.add('hidden');
     startListening();
   }
@@ -182,8 +180,8 @@ function triggerHaze(x, y) {
   blob.addEventListener('animationend', () => blob.remove());
 }
 
-MAX_POINTS.addEventListener('click', e => triggerHaze(e.clientX, e.clientY));
-MAX_POINTS.addEventListener('touchstart', e => {
+window.addEventListener('click', e => triggerHaze(e.clientX, e.clientY));
+window.addEventListener('touchstart', e => {
   const t = e.touches[0];
   triggerHaze(t.clientX, t.clientY);
 }, { passive: true });
