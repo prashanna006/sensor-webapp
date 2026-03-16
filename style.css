@@ -54,9 +54,28 @@ body::before {
   z-index: 1;
 }
 
-/* Filter applied to app when ripple active */
-#app.distorting {
-  filter: url(#glass-distort);
+/* Purple haze bloom on tap/click */
+.haze-blob {
+  position: fixed;
+  border-radius: 50%;
+  width: 320px;
+  height: 320px;
+  background: radial-gradient(ellipse, rgba(124,106,255,0.18) 0%, rgba(124,106,255,0.06) 40%, transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0);
+  filter: blur(32px);
+  z-index: 999;
+  animation: none;
+}
+
+.haze-blob.active {
+  animation: haze-bloom 900ms ease-out forwards;
+}
+
+@keyframes haze-bloom {
+  0%   { transform: translate(-50%, -50%) scale(0);   opacity: 1; }
+  40%  { transform: translate(-50%, -50%) scale(1);   opacity: 0.85; }
+  100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
 }
 
 /* Header */

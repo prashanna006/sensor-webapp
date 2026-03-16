@@ -7,24 +7,11 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <!-- SVG filter definition -->
-  <svg id="filters" style="position:absolute;width:0;height:0;">
-    <defs>
-      <filter id="glass-distort" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="linearRGB">
-        <feTurbulence id="turbulence" type="turbulence" baseFrequency="0" numOctaves="3" result="noise" seed="2"/>
-        <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G"/>
-      </filter>
-    </defs>
-  </svg>
-
   <main id="app">
-
     <header id="top-bar">
       <span id="app-name">Sensor Visualizer</span>
       <button id="settings-btn">⚙</button>
     </header>
-
     <section id="hero">
       <h1>Your device,<br><span>laid bare.</span></h1>
       <p>Real-time sensor data from your phone — visualized as charts, graphs, and 3D motion.</p>
@@ -33,12 +20,9 @@
         <span id="sensor-count">Detecting sensors...</span>
       </div>
     </section>
-
     <div class="divider"></div>
-
     <section id="cards">
       <p class="section-label">Sensors</p>
-
       <a href="./sensors/motion/" class="sensor-card">
         <span class="live-dot"></span>
         <div class="card-icon">⚡</div>
@@ -52,7 +36,6 @@
         </div>
         <div class="card-arrow">→</div>
       </a>
-
       <a href="./sensors/magnetometer/" class="sensor-card">
         <span class="live-dot"></span>
         <div class="card-icon">🧲</div>
@@ -66,7 +49,6 @@
         </div>
         <div class="card-arrow">→</div>
       </a>
-
       <a href="./sensors/ambient-light/" class="sensor-card">
         <span class="live-dot"></span>
         <div class="card-icon">💡</div>
@@ -80,7 +62,6 @@
         </div>
         <div class="card-arrow">→</div>
       </a>
-
       <a href="./sensors/absolute-orientation/" class="sensor-card">
         <span class="live-dot"></span>
         <div class="card-icon">🧭</div>
@@ -95,9 +76,7 @@
         </div>
         <div class="card-arrow">→</div>
       </a>
-
     </section>
-
     <footer id="footer">
       <span>Built for mobile</span>
       <span class="footer-dot">·</span>
@@ -105,9 +84,7 @@
       <span class="footer-dot">·</span>
       <span>v1.0</span>
     </footer>
-
   </main>
-
   <script src="app.js"></script>
 </body>
 </html>
