@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sensor Visualizer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <main id="app">
+
+    <header id="top-bar">
+      <span id="app-name">Sensor Visualizer</span>
+      <button id="settings-btn">⚙</button>
+    </header>
+
+    <section id="cards">
+
+      <a href="./motion/index.html" class="sensor-card">
+        <div class="card-icon">⚡</div>
+        <div class="card-body">
+          <h2>Motion</h2>
+          <p>Acceleration and velocity from your device's accelerometer.</p>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="./orientation/index.html" class="sensor-card">
+        <div class="card-icon">🧭</div>
+        <div class="card-body">
+          <h2>Orientation</h2>
+          <p>Real-time 3D rotation using gyroscope and compass data.</p>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
