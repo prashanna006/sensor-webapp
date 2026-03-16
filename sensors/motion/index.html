@@ -32,24 +32,24 @@
 
     <div id="readout">
       <div class="readout-card">
-        <span class="readout-label label-x">X</span>
-        <span class="readout-value" id="val-x">—</span>
+        <span class="readout-label label-mag">Acceleration</span>
+        <span class="readout-value" id="val-accel">—</span>
         <span class="readout-unit">m/s²</span>
       </div>
       <div class="readout-card">
-        <span class="readout-label label-y">Y</span>
-        <span class="readout-value" id="val-y">—</span>
+        <span class="readout-label label-mag">Velocity</span>
+        <span class="readout-value" id="val-vel">—</span>
+        <span class="readout-unit">m/s</span>
+      </div>
+      <div class="readout-card">
+        <span class="readout-label label-mag">Max Acc</span>
+        <span class="readout-value" id="val-max-accel">—</span>
         <span class="readout-unit">m/s²</span>
       </div>
       <div class="readout-card">
-        <span class="readout-label label-z">Z</span>
-        <span class="readout-value" id="val-z">—</span>
-        <span class="readout-unit">m/s²</span>
-      </div>
-      <div class="readout-card">
-        <span class="readout-label label-mag">|a|</span>
-        <span class="readout-value" id="val-mag">—</span>
-        <span class="readout-unit">m/s²</span>
+        <span class="readout-label label-mag">Max Vel</span>
+        <span class="readout-value" id="val-max-vel">—</span>
+        <span class="readout-unit">m/s</span>
       </div>
     </div>
 
@@ -58,16 +58,10 @@
     <section class="chart-section">
       <div class="section-header">
         <span class="section-title">Acceleration</span>
-        <span class="section-sub">X · Y · Z · magnitude</span>
+        <span class="section-sub">magnitude over time</span>
       </div>
       <div class="chart-wrap">
         <canvas id="accel-chart"></canvas>
-      </div>
-      <div class="legend">
-        <span class="legend-item"><span class="legend-dot" style="background:var(--x)"></span>X</span>
-        <span class="legend-item"><span class="legend-dot" style="background:var(--y)"></span>Y</span>
-        <span class="legend-item"><span class="legend-dot" style="background:var(--z)"></span>Z</span>
-        <span class="legend-item"><span class="legend-dot" style="background:var(--mag)"></span>|a|</span>
       </div>
     </section>
 
@@ -76,16 +70,10 @@
     <section class="chart-section">
       <div class="section-header">
         <span class="section-title">Velocity</span>
-        <span class="section-sub">Integrated · X · Y · Z · magnitude</span>
+        <span class="section-sub">integrated magnitude over time</span>
       </div>
       <div class="chart-wrap">
         <canvas id="vel-chart"></canvas>
-      </div>
-      <div class="legend">
-        <span class="legend-item"><span class="legend-dot" style="background:var(--x)"></span>X</span>
-        <span class="legend-item"><span class="legend-dot" style="background:var(--y)"></span>Y</span>
-        <span class="legend-item"><span class="legend-dot" style="background:var(--z)"></span>Z</span>
-        <span class="legend-item"><span class="legend-dot" style="background:var(--mag)"></span>|v|</span>
       </div>
     </section>
 

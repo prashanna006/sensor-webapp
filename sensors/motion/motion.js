@@ -8,6 +8,8 @@ const vel   = { x: 0, y: 0, z: 0 };
 let lastTime    = null;
 let dirty       = false;
 let initialized = false;
+let maxAccel = 0;
+let maxVel   = 0;
 
 // --- DOM ---
 const valAccel   = document.getElementById('val-accel');
@@ -16,6 +18,8 @@ const statusPill = document.getElementById('status-pill');
 const statusText = document.getElementById('status-text');
 const banner     = document.getElementById('permission-banner');
 const requestBtn = document.getElementById('request-btn');
+const valMaxAccel = document.getElementById('val-max-accel');
+const valMaxVel   = document.getElementById('val-max-vel');
 
 // --- Chart setup ---
 const chartDefaults = {
@@ -87,6 +91,11 @@ function renderLoop() {
 
     valAccel.textContent = mag.toFixed(3);
     valVel.textContent   = vMag.toFixed(3);
+    
+    if (mag > maxAccel) maxAccel = mag;
+    if (vMag > maxVel)  maxVel   = vMag;
+    valMaxAccel.textContent = maxAccel.toFixed(3);
+    valMaxVel.textContent   = maxVel.toFixed(3);
 
     dirty = false;
   }

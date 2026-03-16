@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Absolute Orientation — Sensor Visualizer</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preload" href="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js" as="script">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="absolute-orientation.css">
+</head>
+<body>
+  <main id="app">
+
+    <header id="top-bar">
+      <a href="../../" id="back-btn">←</a>
+      <div id="page-title-wrap">
+        <span id="page-label">Sensor Visualizer</span>
+        <span id="page-title">Absolute Orientation</span>
+      </div>
+      <div id="status-pill">
+        <span class="dot"></span>
+        <span id="status-text">Waiting</span>
+      </div>
+    </header>
+
+    <div id="permission-banner">
+      <p>Orientation data requires your permission on iOS. Tap below to enable it.<br>
+      <span style="color:var(--accent)">Use Safari for best results.</span></p>
+      <button id="request-btn">Enable Orientation</button>
+    </div>
+
+    <div id="cube-wrap">
+      <canvas id="cube-canvas"></canvas>
+    </div>
+
+    <div id="readout">
+        <div class="readout-card">
+            <span class="readout-label label-alpha">Face</span>
+            <span class="readout-value" id="val-face" style="font-size:0.72rem; line-height:1.2">—</span>
+            <span class="readout-unit">orientation</span>
+        </div>
+        <div class="readout-card">
+            <span class="readout-label label-beta">Tilt</span>
+            <span class="readout-value" id="val-tilt">—</span>
+            <span class="readout-unit">deg</span>
+        </div>
+        <div class="readout-card">
+            <span class="readout-label label-gamma">Spin</span>
+            <span class="readout-value" id="val-spin">—</span>
+            <span class="readout-unit">°/s</span>
+        </div>
+    </div>
+
+    <div id="reset-hint">
+      <p>For best results, hold the phone upright facing you, then tap Reset.</p>
+      <button id="reset-btn">Reset Orientation</button>
+    </div>
+
+  </main>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+    }
+  }
+  </script>
+  <script type="module" src="absolute-orientation.js"></script>
+</body>
+</html>
