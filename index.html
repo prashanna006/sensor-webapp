@@ -15,27 +15,91 @@
       <button id="settings-btn">⚙</button>
     </header>
 
+    <section id="hero">
+      <h1>Explore your device<br>in real time.</h1>
+      <p>Visualize live sensor data from your phone — motion, orientation, light, and more.</p>
+      <div id="sensor-status">
+        <span class="status-dot"></span>
+        <span id="sensor-count">Detecting sensors...</span>
+      </div>
+    </section>
+
     <section id="cards">
 
-      <a href="./motion/index.html" class="sensor-card">
-        <div class="card-icon">⚡</div>
+      <a href="./sensors/motion/" class="sensor-card">
+        <div class="card-top">
+          <div class="card-icon">⚡</div>
+          <span class="live-dot"></span>
+        </div>
         <div class="card-body">
           <h2>Motion</h2>
-          <p>Acceleration and velocity from your device's accelerometer.</p>
+          <p>Track acceleration and derive velocity from your device's movement.</p>
+          <div class="card-tags">
+            <span class="tag">Accelerometer</span>
+            <span class="tag">Velocity</span>
+          </div>
         </div>
         <div class="card-arrow">→</div>
       </a>
 
-      <a href="./orientation/index.html" class="sensor-card">
-        <div class="card-icon">🧭</div>
+      <a href="./sensors/magnetometer/" class="sensor-card">
+        <div class="card-top">
+          <div class="card-icon">🧲</div>
+          <span class="live-dot"></span>
+        </div>
         <div class="card-body">
-          <h2>Orientation</h2>
-          <p>Real-time 3D rotation using gyroscope and compass data.</p>
+          <h2>Magnetometer</h2>
+          <p>Measure magnetic field strength and direction around your device.</p>
+          <div class="card-tags">
+            <span class="tag">Magnetic Field</span>
+            <span class="tag">Compass</span>
+          </div>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="./sensors/ambient-light/" class="sensor-card">
+        <div class="card-top">
+          <div class="card-icon">💡</div>
+          <span class="live-dot"></span>
+        </div>
+        <div class="card-body">
+          <h2>Ambient Light</h2>
+          <p>Read the current light level in lux from your environment.</p>
+          <div class="card-tags">
+            <span class="tag">Lux</span>
+            <span class="tag">Light Sensor</span>
+          </div>
+        </div>
+        <div class="card-arrow">→</div>
+      </a>
+
+      <a href="./sensors/absolute-orientation/" class="sensor-card">
+        <div class="card-top">
+          <div class="card-icon">🧭</div>
+          <span class="live-dot"></span>
+        </div>
+        <div class="card-body">
+          <h2>Absolute Orientation</h2>
+          <p>Visualize 3D device rotation fused from gyroscope and compass data.</p>
+          <div class="card-tags">
+            <span class="tag">Gyroscope</span>
+            <span class="tag">Fusion</span>
+            <span class="tag">3D</span>
+          </div>
         </div>
         <div class="card-arrow">→</div>
       </a>
 
     </section>
+
+    <footer id="footer">
+      <span>Built for mobile</span>
+      <span class="footer-dot">·</span>
+      <span>Open source</span>
+      <span class="footer-dot">·</span>
+      <span>v1.0</span>
+    </footer>
 
   </main>
 
