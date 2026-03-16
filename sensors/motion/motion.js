@@ -1,7 +1,6 @@
 // --- Config ---
-const MAX_POINTS = 100;  // data points shown on chart
-const ALPHA      = 0.2;  // low-pass smoothing factor
-const INTERVAL   = 1000 / 30; // ~30 Hz target
+const MAX_POINTS = 100;
+const ALPHA      = 0.05;
 
 // --- State ---
 const accel = { x: 0, y: 0, z: 0 };
@@ -11,71 +10,70 @@ let dirty       = false;
 let initialized = false;
 
 // --- DOM ---
-const valX       = document.getElementById('val-x');
-const valY       = document.getElementById('val-y');
-const valZ       = document.getElementById('val-z');
-const valMag     = document.getElementById('val-mag');
+const valAccel   = document.getElementById('val-accel');
+const valVel     = document.getElementById('val-vel');
 const statusPill = document.getElementById('status-pill');
 const statusText = document.getElementById('status-text');
 const banner     = document.getElementById('permission-banner');
 const requestBtn = document.getElementById('request-btn');
 
 // --- Chart setup ---
-function makeDatasets(axisColors) {
-  const labels = ['X', 'Y', 'Z', '|v|'];
-  return labels.map((label, i) => ({
-    label,
-    data: new Array(MAX_POINTS).fill(0),
-    borderColor: axisColors[i],
-    borderWidth: 1.5,
-    pointRadius: 0,
-    tension: 0.3,
-    fill: false,
-  }));
-}
-
 const chartDefaults = {
   type: 'line',
   options: {
     animation: false,
     responsive: true,
     maintainAspectRatio: true,
-    interaction: { mode: 'index', intersect: false },
     plugins: { legend: { display: false }, tooltip: { enabled: false } },
     scales: {
       x: { display: false },
       y: {
         grid: { color: '#1e1e2e' },
-        ticks: { color: '#555', font: { size: 10 }, maxTicksLimit: 5 },
+        ticks: { color: '#555', font: { size: 10 }, maxTicksLimit: 4 },
         border: { color: '#1e1e2e' },
+        suggestedMin: 0,
+        suggestedMax: 2,
       }
     }
   }
 };
 
-const accelColors = [
-  getComputedStyle(document.documentElement).getPropertyValue('--x').trim()   || '#ff6a6a',
-  getComputedStyle(document.documentElement).getPropertyValue('--y').trim()   || '#6affb0',
-  getComputedStyle(document.documentElement).getPropertyValue('--z').trim()   || '#6ac8ff',
-  getComputedStyle(document.documentElement).getPropertyValue('--mag').trim() || '#ffd96a',
-];
-
 const accelChart = new Chart(document.getElementById('accel-chart'), {
   ...chartDefaults,
-  data: { labels: new Array(MAX_POINTS).fill(''), datasets: makeDatasets(accelColors) }
+  data: {
+    labels: new Array(MAX_POINTS).fill(''),
+    datasets: [{
+      data: new Array(MAX_POINTS).fill(0),
+      borderColor: '#7c6aff',
+      borderWidth: 1.5,
+      pointRadius: 0,
+      tension: 0.3,
+      fill: false,
+    }]
+  }
 });
 
 const velChart = new Chart(document.getElementById('vel-chart'), {
   ...chartDefaults,
-  data: { labels: new Array(MAX_POINTS).fill(''), datasets: makeDatasets(accelColors) }
+  data: {
+    labels: new Array(MAX_POINTS).fill(''),
+    datasets: [{
+      data: new Array(MAX_POINTS).fill(0),
+      borderColor: '#7c6aff',
+      borderWidth: 1.5,
+      pointRadius: 0,
+      tension: 0.3,
+      fill: false,
+    }]
+  }
 });
 
-// --- Push data into chart datasets ---
-function pushData(chart, values) {
-  chart.data.datasets.forEach((ds, i) => {
-    ds.data.push(values[i]);
-    if (ds.data.length > MAX_POINTS) ds.data.shift();
-  });
+// --- Push single value into chart ---
+function pushData(chart, value) {
+  chart.data.datasets[0].data.push(value);
+  if (chart.data.datasets[0].data.length > MAX_POINTS) {
+    chart.data.datasets[0].data.shift();
+  }
 }
 
 // --- Render loop ---
@@ -87,10 +85,8 @@ function renderLoop() {
     const mag  = Math.sqrt(accel.x**2 + accel.y**2 + accel.z**2);
     const vMag = Math.sqrt(vel.x**2 + vel.y**2 + vel.z**2);
 
-    valX.textContent   = accel.x.toFixed(2);
-    valY.textContent   = accel.y.toFixed(2);
-    valZ.textContent   = accel.z.toFixed(2);
-    valMag.textContent = mag.toFixed(2);
+    valAccel.textContent = mag.toFixed(3);
+    valVel.textContent   = vMag.toFixed(3);
 
     dirty = false;
   }
@@ -99,37 +95,42 @@ function renderLoop() {
 
 // --- Motion handler ---
 function onMotion(e) {
-  const raw = e.accelerationIncludingGravity;
-  if (!raw) return;
+  const raw = e.acceleration;
+  if (!raw || raw.x === null) return;
 
   const now = performance.now();
   const dt  = lastTime ? Math.min((now - lastTime) / 1000, 0.1) : 0;
   lastTime  = now;
 
-  // Seed filter with first real values instead of starting from 0
   if (!initialized) {
-    accel.x = raw.x ?? 0;
-    accel.y = raw.y ?? 0;
-    accel.z = raw.z ?? 0;
+    accel.x = raw.x;
+    accel.y = raw.y;
+    accel.z = raw.z;
     initialized = true;
   } else {
-    accel.x += ALPHA * ((raw.x ?? 0) - accel.x);
-    accel.y += ALPHA * ((raw.y ?? 0) - accel.y);
-    accel.z += ALPHA * ((raw.z ?? 0) - accel.z);
+    accel.x += ALPHA * (raw.x - accel.x);
+    accel.y += ALPHA * (raw.y - accel.y);
+    accel.z += ALPHA * (raw.z - accel.z);
   }
 
-  // Integrate velocity (simple Euler)
+  const mag = Math.sqrt(accel.x**2 + accel.y**2 + accel.z**2);
+
   if (dt > 0) {
     vel.x += accel.x * dt;
     vel.y += accel.y * dt;
     vel.z += accel.z * dt;
   }
 
-  const mag  = Math.sqrt(accel.x**2 + accel.y**2 + accel.z**2);
+  if (mag < 0.1) {
+    vel.x = 0;
+    vel.y = 0;
+    vel.z = 0;
+  }
+
   const vMag = Math.sqrt(vel.x**2 + vel.y**2 + vel.z**2);
 
-  pushData(accelChart, [accel.x, accel.y, accel.z, mag]);
-  pushData(velChart,   [vel.x,   vel.y,   vel.z,   vMag]);
+  pushData(accelChart, mag);
+  pushData(velChart, vMag);
 
   dirty = true;
 }
