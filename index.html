@@ -8,6 +8,16 @@
 </head>
 <body>
 
+  <!-- SVG filter definition -->
+  <svg id="filters" style="position:absolute;width:0;height:0;">
+    <defs>
+      <filter id="glass-distort" x="-50%" y="-50%" width="200%" height="200%" color-interpolation-filters="linearRGB">
+        <feTurbulence id="turbulence" type="turbulence" baseFrequency="0" numOctaves="3" result="noise" seed="2"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
   <main id="app">
 
     <header id="top-bar">
@@ -16,24 +26,25 @@
     </header>
 
     <section id="hero">
-      <h1>Explore your device<br>in real time.</h1>
-      <p>Visualize live sensor data from your phone — motion, orientation, light, and more.</p>
+      <h1>Your device,<br><span>laid bare.</span></h1>
+      <p>Real-time sensor data from your phone — visualized as charts, graphs, and 3D motion.</p>
       <div id="sensor-status">
         <span class="status-dot"></span>
         <span id="sensor-count">Detecting sensors...</span>
       </div>
     </section>
 
+    <div class="divider"></div>
+
     <section id="cards">
+      <p class="section-label">Sensors</p>
 
       <a href="./sensors/motion/" class="sensor-card">
-        <div class="card-top">
-          <div class="card-icon">⚡</div>
-          <span class="live-dot"></span>
-        </div>
+        <span class="live-dot"></span>
+        <div class="card-icon">⚡</div>
         <div class="card-body">
           <h2>Motion</h2>
-          <p>Track acceleration and derive velocity from your device's movement.</p>
+          <p>Acceleration and velocity from your accelerometer.</p>
           <div class="card-tags">
             <span class="tag">Accelerometer</span>
             <span class="tag">Velocity</span>
@@ -43,13 +54,11 @@
       </a>
 
       <a href="./sensors/magnetometer/" class="sensor-card">
-        <div class="card-top">
-          <div class="card-icon">🧲</div>
-          <span class="live-dot"></span>
-        </div>
+        <span class="live-dot"></span>
+        <div class="card-icon">🧲</div>
         <div class="card-body">
           <h2>Magnetometer</h2>
-          <p>Measure magnetic field strength and direction around your device.</p>
+          <p>Magnetic field strength and compass heading.</p>
           <div class="card-tags">
             <span class="tag">Magnetic Field</span>
             <span class="tag">Compass</span>
@@ -59,13 +68,11 @@
       </a>
 
       <a href="./sensors/ambient-light/" class="sensor-card">
-        <div class="card-top">
-          <div class="card-icon">💡</div>
-          <span class="live-dot"></span>
-        </div>
+        <span class="live-dot"></span>
+        <div class="card-icon">💡</div>
         <div class="card-body">
           <h2>Ambient Light</h2>
-          <p>Read the current light level in lux from your environment.</p>
+          <p>Current light level in lux from your environment.</p>
           <div class="card-tags">
             <span class="tag">Lux</span>
             <span class="tag">Light Sensor</span>
@@ -75,13 +82,11 @@
       </a>
 
       <a href="./sensors/absolute-orientation/" class="sensor-card">
-        <div class="card-top">
-          <div class="card-icon">🧭</div>
-          <span class="live-dot"></span>
-        </div>
+        <span class="live-dot"></span>
+        <div class="card-icon">🧭</div>
         <div class="card-body">
           <h2>Absolute Orientation</h2>
-          <p>Visualize 3D device rotation fused from gyroscope and compass data.</p>
+          <p>3D rotation fused from gyroscope and compass.</p>
           <div class="card-tags">
             <span class="tag">Gyroscope</span>
             <span class="tag">Fusion</span>
