@@ -1,13 +1,14 @@
 // --- Config ---
 const MAX_POINTS = 100;  // data points shown on chart
-const ALPHA      = 0.05; // low-pass smoothing factor
+const ALPHA      = 0.2;  // low-pass smoothing factor
 const INTERVAL   = 1000 / 30; // ~30 Hz target
 
 // --- State ---
 const accel = { x: 0, y: 0, z: 0 };
 const vel   = { x: 0, y: 0, z: 0 };
-let lastTime = null;
-let dirty = false;
+let lastTime    = null;
+let dirty       = false;
+let initialized = false;
 
 // --- DOM ---
 const valX       = document.getElementById('val-x');
@@ -105,10 +106,17 @@ function onMotion(e) {
   const dt  = lastTime ? Math.min((now - lastTime) / 1000, 0.1) : 0;
   lastTime  = now;
 
-  // Low-pass filter
-  accel.x += ALPHA * ((raw.x ?? 0) - accel.x);
-  accel.y += ALPHA * ((raw.y ?? 0) - accel.y);
-  accel.z += ALPHA * ((raw.z ?? 0) - accel.z);
+  // Seed filter with first real values instead of starting from 0
+  if (!initialized) {
+    accel.x = raw.x ?? 0;
+    accel.y = raw.y ?? 0;
+    accel.z = raw.z ?? 0;
+    initialized = true;
+  } else {
+    accel.x += ALPHA * ((raw.x ?? 0) - accel.x);
+    accel.y += ALPHA * ((raw.y ?? 0) - accel.y);
+    accel.z += ALPHA * ((raw.z ?? 0) - accel.z);
+  }
 
   // Integrate velocity (simple Euler)
   if (dt > 0) {
