@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gyroscope — Sensor Visualizer</title>
+  <link rel="stylesheet" href="../../style.css" />
+  <link rel="stylesheet" href="gyroscope.css" />
+</head>
+<body>
+  <a class="back-link" href="../../index.html">← Back</a>
+
+  <div class="page-header">
+    <h1>Gyroscope</h1>
+    <p class="subtitle">Raw rotation rate across X, Y, and Z axes</p>
+  </div>
+
+  <div id="unsupported-banner" class="banner hidden">
+    ⚠️ Gyroscope not supported on this device or browser.
+  </div>
+
+  <div class="readouts">
+    <div class="readout-card">
+      <span class="label">X</span>
+      <span class="value" id="val-x">—</span>
+      <span class="unit">rad/s</span>
+    </div>
+    <div class="readout-card">
+      <span class="label">Y</span>
+      <span class="value" id="val-y">—</span>
+      <span class="unit">rad/s</span>
+    </div>
+    <div class="readout-card">
+      <span class="label">Z</span>
+      <span class="value" id="val-z">—</span>
+      <span class="unit">rad/s</span>
+    </div>
+    <div class="readout-card">
+      <span class="label">Peak</span>
+      <span class="value" id="val-peak">—</span>
+      <span class="unit">rad/s</span>
+    </div>
+  </div>
+
+  <div class="charts">
+    <div class="chart-card">
+      <h2>X / Y / Z Rotation Rate</h2>
+      <canvas id="chart-xyz"></canvas>
+    </div>
+    <div class="chart-card">
+      <h2>Magnitude</h2>
+      <canvas id="chart-mag"></canvas>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="gyroscope.js"></script>
+</body>
+</html>

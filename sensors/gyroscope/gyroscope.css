@@ -1,3 +1,12 @@
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+body {
+  display: block;
+}
+
 .back-link {
   display: inline-block;
   margin: 1.5rem 1.5rem 0;
@@ -33,57 +42,9 @@
 }
 .hidden { display: none; }
 
-/* Lux visual */
-.lux-visual {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  padding: 1rem 1.5rem 1.5rem;
-}
-
-.lux-ring {
-  width: 160px;
-  height: 160px;
-  border-radius: 50%;
-  border: 2px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  transition: box-shadow 0.4s ease, border-color 0.4s ease;
-}
-
-.lux-inner {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.2rem;
-}
-
-.lux-big {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--text-primary);
-  font-variant-numeric: tabular-nums;
-  line-height: 1;
-}
-
-.lux-unit {
-  font-size: 0.75rem;
-  color: var(--text-muted);
-}
-
-.lux-label {
-  font-size: 0.85rem;
-  color: var(--accent);
-  letter-spacing: 0.05em;
-}
-
-/* Readouts */
 .readouts {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
   padding: 0 1.5rem 1.5rem;
 }
@@ -103,7 +64,7 @@
   letter-spacing: 0.08em;
 }
 .readout-card .value {
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   font-weight: 600;
   color: var(--text-primary);
   font-variant-numeric: tabular-nums;
@@ -113,7 +74,6 @@
   color: var(--text-muted);
 }
 
-/* Chart */
 .charts {
   display: flex;
   flex-direction: column;
