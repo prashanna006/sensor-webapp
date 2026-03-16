@@ -169,3 +169,21 @@ function init() {
 // --- Boot ---
 init();
 requestAnimationFrame(renderLoop);
+
+// --- Purple haze bloom ---
+function triggerHaze(x, y) {
+  const blob = document.createElement('div');
+  blob.className = 'haze-blob';
+  blob.style.left = x + 'px';
+  blob.style.top  = y + 'px';
+  document.body.appendChild(blob);
+  blob.getBoundingClientRect();
+  blob.classList.add('active');
+  blob.addEventListener('animationend', () => blob.remove());
+}
+
+window.addEventListener('click', e => triggerHaze(e.clientX, e.clientY));
+window.addEventListener('touchstart', e => {
+  const t = e.touches[0];
+  triggerHaze(t.clientX, t.clientY);
+}, { passive: true });
