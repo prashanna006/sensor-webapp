@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Motion — Sensor Visualizer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link rel="stylesheet" href="motion.css">
+</head>
+<body>
+  <main id="app">
+
+    <header id="top-bar">
+      <a href="../../" id="back-btn">←</a>
+      <div id="page-title-wrap">
+        <span id="page-label">Sensor Visualizer</span>
+        <span id="page-title">Motion</span>
+      </div>
+      <div id="status-pill">
+        <span class="dot"></span>
+        <span id="status-text">Waiting</span>
+      </div>
+    </header>
+
+    <div id="permission-banner">
+      <p>Motion data requires your permission on iOS. Tap below to enable it.</p>
+      <button id="request-btn">Enable Motion</button>
+    </div>
+
+    <div id="readout">
+      <div class="readout-card">
+        <span class="readout-label label-x">X</span>
+        <span class="readout-value" id="val-x">—</span>
+        <span class="readout-unit">m/s²</span>
+      </div>
+      <div class="readout-card">
+        <span class="readout-label label-y">Y</span>
+        <span class="readout-value" id="val-y">—</span>
+        <span class="readout-unit">m/s²</span>
+      </div>
+      <div class="readout-card">
+        <span class="readout-label label-z">Z</span>
+        <span class="readout-value" id="val-z">—</span>
+        <span class="readout-unit">m/s²</span>
+      </div>
+      <div class="readout-card">
+        <span class="readout-label label-mag">|a|</span>
+        <span class="readout-value" id="val-mag">—</span>
+        <span class="readout-unit">m/s²</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <section class="chart-section">
+      <div class="section-header">
+        <span class="section-title">Acceleration</span>
+        <span class="section-sub">X · Y · Z · magnitude</span>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="accel-chart"></canvas>
+      </div>
+      <div class="legend">
+        <span class="legend-item"><span class="legend-dot" style="background:var(--x)"></span>X</span>
+        <span class="legend-item"><span class="legend-dot" style="background:var(--y)"></span>Y</span>
+        <span class="legend-item"><span class="legend-dot" style="background:var(--z)"></span>Z</span>
+        <span class="legend-item"><span class="legend-dot" style="background:var(--mag)"></span>|a|</span>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="chart-section">
+      <div class="section-header">
+        <span class="section-title">Velocity</span>
+        <span class="section-sub">Integrated · X · Y · Z · magnitude</span>
+      </div>
+      <div class="chart-wrap">
+        <canvas id="vel-chart"></canvas>
+      </div>
+      <div class="legend">
+        <span class="legend-item"><span class="legend-dot" style="background:var(--x)"></span>X</span>
+        <span class="legend-item"><span class="legend-dot" style="background:var(--y)"></span>Y</span>
+        <span class="legend-item"><span class="legend-dot" style="background:var(--z)"></span>Z</span>
+        <span class="legend-item"><span class="legend-dot" style="background:var(--mag)"></span>|v|</span>
+      </div>
+    </section>
+
+  </main>
+  <script src="motion.js"></script>
+</body>
+</html>
