@@ -1,5 +1,5 @@
 // --- Config ---
-const WINDOW    = 100;   // data points shown on chart
+const MAX_POINTS    = 100;   // data points shown on chart
 const ALPHA     = 0.05;  // low-pass smoothing factor
 const INTERVAL  = 1000 / 30; // ~30 Hz target
 
@@ -24,7 +24,7 @@ function makeDatasets(axisColors) {
   const labels = ['X', 'Y', 'Z', '|v|'];
   return labels.map((label, i) => ({
     label,
-    data: new Array(WINDOW).fill(0),
+    data: new Array(MAX_POINTS).fill(0),
     borderColor: axisColors[i],
     borderWidth: 1.5,
     pointRadius: 0,
@@ -61,19 +61,19 @@ const accelColors = [
 
 const accelChart = new Chart(document.getElementById('accel-chart'), {
   ...chartDefaults,
-  data: { labels: new Array(WINDOW).fill(''), datasets: makeDatasets(accelColors) }
+  data: { labels: new Array(MAX_POINTS).fill(''), datasets: makeDatasets(accelColors) }
 });
 
 const velChart = new Chart(document.getElementById('vel-chart'), {
   ...chartDefaults,
-  data: { labels: new Array(WINDOW).fill(''), datasets: makeDatasets(accelColors) }
+  data: { labels: new Array(MAX_POINTS).fill(''), datasets: makeDatasets(accelColors) }
 });
 
 // --- Push data into chart datasets ---
 function pushData(chart, values) {
   chart.data.datasets.forEach((ds, i) => {
     ds.data.push(values[i]);
-    if (ds.data.length > WINDOW) ds.data.shift();
+    if (ds.data.length > MAX_POINTS) ds.data.shift();
   });
 }
 
@@ -128,13 +128,13 @@ function onMotion(e) {
 
 // --- Start listening ---
 function startListening() {
-  if (!window.DeviceMotionEvent) {
+  if (!MAX_POINTS.DeviceMotionEvent) {
     statusText.textContent = 'Not supported';
     banner.classList.add('hidden');
     return;
   }
 
-  window.addEventListener('devicemotion', onMotion);
+  MAX_POINTS.addEventListener('devicemotion', onMotion);
   statusPill.classList.add('live');
   statusText.textContent = 'Live';
   banner.classList.add('hidden');
@@ -182,8 +182,8 @@ function triggerHaze(x, y) {
   blob.addEventListener('animationend', () => blob.remove());
 }
 
-window.addEventListener('click', e => triggerHaze(e.clientX, e.clientY));
-window.addEventListener('touchstart', e => {
+MAX_POINTS.addEventListener('click', e => triggerHaze(e.clientX, e.clientY));
+MAX_POINTS.addEventListener('touchstart', e => {
   const t = e.touches[0];
   triggerHaze(t.clientX, t.clientY);
 }, { passive: true });
