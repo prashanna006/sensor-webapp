@@ -18,10 +18,6 @@ const count = [motionSupported, gyroSupported, orientationSupported].filter(Bool
 document.getElementById('sensor-count').textContent =
   count > 0 ? `${count} sensor${count > 1 ? 's' : ''} detected` : 'No sensors detected';
 
-const count = getSensorCount();
-document.getElementById('sensor-count').textContent =
-  count > 0 ? `${count} sensor${count > 1 ? 's' : ''} detected` : 'No sensors detected';
-
 // --- Purple Haze Bloom ---
 function triggerHaze(x, y) {
   const blob = document.createElement('div');
@@ -29,7 +25,6 @@ function triggerHaze(x, y) {
   blob.style.left = x + 'px';
   blob.style.top  = y + 'px';
   document.body.appendChild(blob);
-  // Force reflow so animation triggers fresh
   blob.getBoundingClientRect();
   blob.classList.add('active');
   blob.addEventListener('animationend', () => blob.remove());
